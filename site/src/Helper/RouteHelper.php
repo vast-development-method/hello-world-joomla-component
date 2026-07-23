@@ -1,0 +1,135 @@
+<?php
+/*----------------------------------------------------------------------------------|  www.vdm.io  |----/
+				VDM 
+/-------------------------------------------------------------------------------------------------------/
+
+	@version		6.0.0
+	@build			23rd July, 2026
+	@created		20th July, 2026
+	@package		Hello World
+	@subpackage		RouteHelper.php
+	@author			Llewellyn <https://www.vdm.io>	
+	@copyright		Copyright (C) 2015. All Rights Reserved
+	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+  ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
+ (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
+.-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
+\____) (_____)(_____)(_/\/\_)(____)(__)(__)   \___)(_____)(_/\/\_)(__)  (_____)(_)\_)(____)(_)\_) (__) 
+
+/------------------------------------------------------------------------------------------------------*/
+namespace JCB\Component\Helloworld\Site\Helper;
+
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\Registry\Registry;
+
+// No direct access to this file
+\defined('_JEXEC') or die;
+
+/**
+ * Helloworld Component Route Helper
+ *
+ * @since       1.5
+ */
+abstract class RouteHelper
+{
+	/**
+	 * Registry to hold the helloworld params
+	 *
+	 * @var    Registry
+	 * @since  5.1.3
+	 */
+	protected static Registry $params;
+
+	/**
+	 * Get the URL route for greet
+	 *
+	 * @param   integer  $id     The id of the greet
+	 *
+	 * @return  string  The link to the greet
+	 *
+	 * @since   1.5
+	 */
+	public static function getGreetRoute($id = 0): string
+	{
+		if ($id > 0)
+		{
+			// [VDM\Joomla\Componentbuilder\Compiler\Helper\Interpretation 5697] Create the link
+			$link = 'index.php?option=com_helloworld&view=greet&id='. $id;
+		}
+		else
+		{
+			// [VDM\Joomla\Componentbuilder\Compiler\Helper\Interpretation 5716] Create the link but don't add the id.
+			$link = 'index.php?option=com_helloworld&view=greet';
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Get the URL route for greetings
+	 *
+	 * @param   integer  $id     The id of the greetings
+	 *
+	 * @return  string  The link to the greetings
+	 *
+	 * @since   1.5
+	 */
+	public static function getGreetingsRoute($id = 0): string
+	{
+		if ($id > 0)
+		{
+			// [VDM\Joomla\Componentbuilder\Compiler\Helper\Interpretation 5697] Create the link
+			$link = 'index.php?option=com_helloworld&view=greetings&id='. $id;
+		}
+		else
+		{
+			// [VDM\Joomla\Componentbuilder\Compiler\Helper\Interpretation 5716] Create the link but don't add the id.
+			$link = 'index.php?option=com_helloworld&view=greetings';
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Retrieve a legacy-configured menu item override.
+	 *
+	 * This method is preserved for backward compatibility with older
+	 * JCB-generated components where menu item overrides could be defined
+	 * in the component's **global Options** panel. Administrators were able
+	 * to add menu-item selector fields under the same tab name as the
+	 * related entity/view type, using the naming convention:
+	 *
+	 *     {type}_menu
+	 *
+	 * Example:
+	 *   - A field named `tag_menu` allowed administrators to force all tag
+	 *     routing to use a specific menu item.
+	 *
+	 * These overrides served as a convenience mechanism for redirecting
+	 * routing behaviour *without* modifying the router code.
+	 *
+	 * Joomla 5's recommended pattern now is to implement all routing
+	 * decisions directly inside the router class. This method therefore
+	 * remains solely as a **legacy fallback**, ensuring older sites continue
+	 * functioning during migrations or long-term upgrade paths.
+	 *
+	 * If a matching `{type}_menu` parameter exists and contains a valid
+	 * menu item ID (>0), that ID is returned. Otherwise, `null` is returned.
+	 *
+	 * @param  string  $type  The entity/view type whose `{type}_menu`
+	 *                        override should be checked.
+	 *
+	 * @return int|null  The overridden menu item ID if available, otherwise null.
+	 * @since   5.1.3
+	 */
+	protected static function _findItem(string $type): ?int
+	{
+		// Lazy-load the component parameters only once.
+		self::$params ??= ComponentHelper::getParams('com_helloworld');
+
+		// Read the legacy override (0 means "not set").
+		$override = (int) self::$params->get($type . '_menu', 0);
+
+		return $override > 0 ? $override : null;
+	}
+}
