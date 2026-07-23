@@ -1,0 +1,45 @@
+<?php
+/*----------------------------------------------------------------------------------|  www.vdm.io  |----/
+				VDM 
+/-------------------------------------------------------------------------------------------------------/
+
+	@version		6.0.0
+	@build			23rd July, 2026
+	@created		20th July, 2026
+	@package		Hello World
+	@subpackage		Dispatcher.php
+	@author			Llewellyn <https://www.vdm.io>	
+	@copyright		Copyright (C) 2015. All Rights Reserved
+	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+  ____  _____  _____  __  __  __      __       ___  _____  __  __  ____  _____  _  _  ____  _  _  ____ 
+ (_  _)(  _  )(  _  )(  \/  )(  )    /__\     / __)(  _  )(  \/  )(  _ \(  _  )( \( )( ___)( \( )(_  _)
+.-_)(   )(_)(  )(_)(  )    (  )(__  /(__)\   ( (__  )(_)(  )    (  )___/ )(_)(  )  (  )__)  )  (   )(  
+\____) (_____)(_____)(_/\/\_)(____)(__)(__)   \___)(_____)(_/\/\_)(__)  (_____)(_)\_)(____)(_)\_) (__) 
+
+/------------------------------------------------------------------------------------------------------*/
+namespace JCB\Component\Helloworld\Site\Dispatcher;
+
+use Joomla\CMS\Dispatcher\ComponentDispatcher;
+
+// No direct access to this file
+\defined('_JEXEC') or die;
+
+/**
+ * ComponentDispatcher class for com_helloworld
+ *
+ * @since  4.0.0
+ */
+class Dispatcher extends ComponentDispatcher
+{
+	/**
+	 * Dispatch a controller task. Redirecting the user if appropriate.
+	 *
+	 * @return  void
+	 *
+	 * @since   4.0.0
+	 */
+	public function dispatch()
+	{
+		parent::dispatch();
+	}
+}
